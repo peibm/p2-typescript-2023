@@ -1,17 +1,29 @@
 export class Anime {
-  constructor(
-    public rank: number,
-    public titles: Titles[],
-    public images: Images,
-    public score: number,
-    public synopsis: string,
-    public year: number,
-    public episodes: number,
-    public airing: boolean,
-    public status: Status,
-    public broadcast: Broadcast,
-    public trailer: YoutubeVideo
-  ) {}
+  public rank: number;
+  public titles: Titles[];
+  public images: Images;
+  public score: number;
+  public synopsis: string;
+  public year: number;
+  public episodes: number;
+  public airing: boolean;
+  public status: Status;
+  public broadcast: Broadcast;
+  public trailer: YoutubeVideo;
+
+  constructor(obj: any) {
+    this.rank = obj.rank;
+    this.titles = obj.titles;
+    this.images = obj.images;
+    this.score = obj.score;
+    this.synopsis = obj.synopsis;
+    this.year = obj.year;
+    this.episodes = obj.episodes;
+    this.airing = obj.airing;
+    this.status = obj.status;
+    this.broadcast = obj.broadcast;
+    this.trailer = obj.trailer;
+  }
 }
 
 export enum Status {
@@ -52,45 +64,29 @@ export interface ImagesCollection {
   maximum_image_url?: string;
 }
 
-const q = {
-  type: `tv`,
-  filter: `bypopularity`,
-  page: 1,
-  limit: 1,
-};
+export interface AnimeQuery {
+  type: "tv" | "movie" | "ova" | "special" | "ona" | "music";
+  filter: "airing" | "upcoming" | "bypopularity" | "favorite";
+  page: number;
+  limit: number;
+}
 
-export const getTopAnimes = async () => {
+
+export const getTopAnimes = async (q: AnimeQuery) => {
   const url = `https://api.jikan.moe/v4/top/anime?q=${q.type}/${q.filter}/${q.page}/${q.limit}`;
   const response = await fetch(url);
   const { data } = (await response.json()) as { data: any[] };
   let animes: Array<Anime> = [];
-  for (const {
-    rank,
-    titles,
-    images,
-    score,
-    synopis,
-    year,
-    episodes,
-    airing,
-    status,
-    broadcast,
-    trailer,
-  } of data) {
-    animes.push(
-      new Anime(
-        rank,
-        titles,
-        images,
-        score,
-        synopis,
-        year,
-        episodes,
-        airing,
-        status,
-        broadcast,
-        trailer
-      )
-    );
+  for (const anime_all of data) {
+    animes.push(new Anime(anime_all));
   }
+  return animes;
 };
+
+const q: AnimeQuery = {
+  type: "tv",
+  filter: `bypopularity`,
+  page: 1,
+  limit: 1,
+};
+await getTopAnimes(q);
