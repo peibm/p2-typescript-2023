@@ -1,4 +1,4 @@
-import  renderTopAnime from "./render.js";
+import  renderTopAnimePage from "./render.js";
 import { getTopAnimes, AnimeQuery } from "./animes.js";
 
 
@@ -11,4 +11,4 @@ const query: AnimeQuery = {
 
 const animes = await getTopAnimes(query);
 
-renderTopAnime(animes, `index.html`);
+await renderTopAnimePage(animes, `index.html`);

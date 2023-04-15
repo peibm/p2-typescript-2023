@@ -1,7 +1,7 @@
 import { Anime, getTopAnimes } from "./animes.js";
 import { writeFile } from "fs/promises";
 
-export const head = (stylepath: string, title: string) => {
+export const renderhead = (stylepath: string, title: string) => {
   return `<!DOCTYPE html>
     <html lang="en">
     <head>
@@ -13,15 +13,20 @@ export const head = (stylepath: string, title: string) => {
     </head>`;
 };
 
-const renderAnimeFace = (anime: Anime) => {
+const renderAnimeCover = (anime: Anime) => {
   return ``;
 };
 
-const renderTopAnime = (animes: Array<Anime>, file: string) => {
+const renderAnimeDetailedPage = (animes: Anime, file: string) => {
   return ``;
 };
-export default renderTopAnime;
 
-const renderAnimeDetailed = (animes: Anime, file_prefix: string) => {
-  return ``;
+const renderTopAnimePage = async (animes: Array<Anime>, file: string) => {
+  const head = renderhead(`./styles.css`, `Top Animes from AnimeList.net`);
+  let animedivs = ``;
+  for (const anime of animes) {
+    animedivs += `<div class="anime-cover">${renderAnimeCover(anime)}</div>`;
+  }
+
 };
+export default renderTopAnimePage;
