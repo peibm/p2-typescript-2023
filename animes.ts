@@ -83,10 +83,13 @@ export const getTopAnimes = async (q: AnimeQuery) => {
   return animes;
 };
 
+// For testing
 const q: AnimeQuery = {
   type: "tv",
   filter: `bypopularity`,
   page: 1,
   limit: 1,
 };
-await getTopAnimes(q);
+
+
+console.log((await getTopAnimes(q))[1])
