@@ -1,0 +1,64 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .anime-cover {
+    width: 200px;
+    height: 300px;
+    font-size: 16px;
+    background-size: cover;
+    position: relative;
+  }
+  
+  .cover-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  
+  .title {
+    background-color: rgba(114, 109, 109, 0.8);
+    text-align: center;
+    border: 5px solid black;
+    padding: 5px;
+    height: 50px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden; 
+    font-family: "Roboto",Helvetica, sans-serif;
+    font-size: 16px;
+    color:white;
+    border-radius: 8px;
+    text-decoration:none;
+  }
+
+  .title:hover {
+    background-color: #ffffff; 
+    color: #3c3c3c; 
+  }
+  
+  .rank,
+  .score {
+    position: absolute;
+    background-color: white;
+    padding: 2px 5px;
+    border: 2px solid black;
+    font-weight: bold;
+  }
+  
+  .rank {
+    top: 5px;
+    left: 5px;
+  }
+  
+  .score {
+    top: 5px;
+    right: 5px;
+  }
+  

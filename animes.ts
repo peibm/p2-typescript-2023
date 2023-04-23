@@ -1,6 +1,6 @@
 export class Anime {
   public rank: number;
-  public titles: Titles[];
+  public titles: Title[];
   public images: Images;
   public score: number;
   public synopsis: string;
@@ -46,7 +46,7 @@ export interface YoutubeVideo {
   embed_url: string;
 }
 
-export interface Titles {
+export interface Title {
   type: string;
   title: string;
 }
@@ -92,4 +92,4 @@ const q: AnimeQuery = {
 };
 
 
-console.log((await getTopAnimes(q))[1])
+//console.log((await getTopAnimes(q))[1])
