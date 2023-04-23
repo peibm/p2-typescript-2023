@@ -23,6 +23,10 @@ function renderTitlesLI(titles: Array<Title>) {
   return output;
 }
 
+const computeBroadcastDay = (anime: Anime): string => {
+  return anime.airing ? anime.broadcast.day : anime.status
+};
+
 const renderAnimeCover = (anime: Anime) => {
   const { titles, images, rank, score } = anime;
   const default_title = titles[0].title;
@@ -43,53 +47,48 @@ const renderAnimeCover = (anime: Anime) => {
 };
 
 const renderAnimeDetailedPage = async (anime: Anime, filename: string) => {
-  const head = renderhead(`./styles-detailed.css`, anime.titles[0].title);;
-  const body = `<body>
-  <h1>Anime Details</h1>
+  const head = renderhead(`styles_detailed.css`, anime.titles[0].title);;
+  const body = `
+  <body>
+  <div class="container">
+    <h1>Anime Details</h1>
 
-  <ul>
-    <li>
-      <span class="label">Rank:</span> ${anime.rank}
-    </li>
-    <li>
-      <span class="label">Titles:</span>
-      <ul>
-        ${renderTitlesLI(anime.titles)}
-      </ul>
-    </li>
-    <li>
-      <span class="label">Image:</span>
-      <img src="${anime.images.webp?.image_url}" alt="Anime image">
-    </li>
-    <li>
-      <span class="label">Score:</span> ${anime.score}
-    </li>
-    <li>
-      <span class="label">Synopsis:</span> ${anime.synopsis}
-    </li>
-    <li>
-      <span class="label">Year:</span> ${anime.year}
-    </li>
-    <li>
-      <span class="label">Episodes:</span> ${anime.episodes}
-    </li>
-    <li>
-      <span class="label">Airing:</span> ${anime.airing}
-    </li>
-    <li>
-      <span class="label">Status:</span> ${anime.status}
-    </li>
-    <li>
-      <span class="label">Broadcast:</span> ${anime.broadcast}
-    </li>
-    <li class="trailer">
-      <span class="label">Trailer:</span>
-      <iframe width="560" height="315" src=${anime.trailer.embed_url} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </li>
-  </ul>
-</body>
-</html>
-`;
+    <div class="data">
+        <div class="data-item">
+            <span class="label">Rank:</span>  ${anime.rank}
+        </div>
+        <div class="data-item">
+            <span class="label">Episodes:</span>  ${anime.episodes}
+        </div>
+        <div class="data-item">
+            <span class="label">Titles:</span>
+            <ul>
+            ${renderTitlesLI(anime.titles)}
+            </ul>
+        </div>
+        <div class="data-item">
+            <span class="label">Cover:</span>
+            <img src="${anime.images.jpg.image_url}" alt="Anime image">
+        </div>
+        <div class="data-item">
+            <span class="label">Score:</span> ${anime.score}
+        </div>
+        <div class="data-item">
+            <span class="label">Synopsis:</span> 
+            ${anime.synopsis}
+        </div>
+        <div class="data-item">
+            <span class="label">Broadcast:</span> ${computeBroadcastDay(anime)}
+        </div>
+        <div class="trailer">
+            <span class="label">Trailer:</span>
+            <iframe width="560" height="315" src=${anime.trailer.embed_url} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            </div>
+        </div>
+        </body>
+        </html>
+            `;
   await writeFile(`./TopAnimesHtml/`+filename, head + body);
 };
 
